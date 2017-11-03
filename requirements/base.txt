@@ -1,0 +1,14 @@
+# Base apps
+psycopg2
+Django
+django-grappelli
+django-compressor
+Pillow
+
+# Additional apps
+easy-thumbnails
+python-slugify
+django-autoslug
+git+git://github.com/aderugin/django-helpers.git
+djangorestframework
+djangorestframework-camel-case
