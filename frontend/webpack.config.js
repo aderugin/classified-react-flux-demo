@@ -3,6 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 
+const extractLESS = new ExtractTextPlugin('bundle.css');
 
 module.exports = [
     {
@@ -22,9 +23,10 @@ module.exports = [
         resolve: {
             modules: [
                 path.resolve(__dirname, 'node_modules'),
-                path.resolve(__dirname, 'src')
+                path.resolve(__dirname, 'src'),
+                path.resolve(__dirname, 'styles')
             ],
-            extensions: ['.jsx', '.js']
+            extensions: ['.jsx', '.js', '.less']
         },
         module: {
             rules: [
@@ -38,19 +40,16 @@ module.exports = [
                 },
                 {
                     test: /\.less?$/,
-                    use: [
-                        { loader: 'style-loader' },
+                    use: extractLESS.extract([
                         { loader: 'css-loader' },
                         { loader: 'less-loader' }
-                    ]
+                    ])
                 }
             ]
         },
         plugins: [
-            new ExtractTextPlugin({
-                filename: '[name].css'
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
+          extractLESS,
+          new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
                 filename: 'vendor.js'
             }),
@@ -72,9 +71,10 @@ module.exports = [
         resolve: {
             modules: [
                 'node_modules',
-                path.resolve(__dirname, 'src')
+                path.resolve(__dirname, 'src'),
+                path.resolve(__dirname, 'styles')
             ],
-            extensions: ['.jsx', '.js']
+            extensions: ['.jsx', '.js', '.less']
         },
         module: {
             rules: [
@@ -85,11 +85,19 @@ module.exports = [
                     options: {
                         presets: ['react', 'es2017', 'stage-2']
                     }
-                }
+                },
+              {
+                  test: /\.less?$/,
+                  use: extractLESS.extract([
+                      { loader: 'css-loader' },
+                      { loader: 'less-loader' }
+                  ])
+              }
             ]
         },
         externals: [nodeExternals()],
         plugins: [
+            extractLESS,
             new webpack.DefinePlugin({
                 BROWSER: JSON.stringify(false)
             })

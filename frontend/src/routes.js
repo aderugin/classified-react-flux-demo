@@ -1,6 +1,6 @@
 import PageFront from 'components/PageFront';
 import PageAdvertList from 'components/PageAdvertList';
-import PageAdvertDetail from 'components/PageAdvertDetail';
+import PageAdvertDetail2 from 'components/page_advert_detail_2';
 
 export default [
     {
@@ -15,7 +15,7 @@ export default [
     },
     {
         path: '/adverts/:slug',
-        component: PageAdvertDetail,
+        component: PageAdvertDetail2,
         exact: true
     }
 ];
