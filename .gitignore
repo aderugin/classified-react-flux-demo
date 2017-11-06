@@ -1,4 +1,7 @@
 .DS_Store
+.idea/
+node_modules/
+build/
 .venv
 public/
 */xapian_index/
@@ -13,3 +16,4 @@ __pycache__
 settings/local.py
 *bundle.js*
 vendor.js*
+*bundle.css*
